@@ -210,3 +210,40 @@ function Price()
 		
 	}
 }
+
+//Exo2
+
+function NewPrice()
+{
+	var date = new Date("2017-01-05");
+	var milliseconde = date.getTime();
+	//It returns the number of milliseconde since 1970-01-01
+
+	var date1 = new Date("2017-01-06");
+	var milliseconde2 = date.getTime();
+
+	var diff;
+	
+	for(var i = 0; i<rentals.length; i++)
+	{
+		date = new Date(rentals[i].pickupDate).getTime();
+		date1 = new Date(rentals[i].returnDate).getTime();
+		diff = date1 - date;
+		diff = (diff/(1000*3600*24)) + 1;
+
+
+		for(var j=0; j<cars.length;j++){
+			if(rentals[i].carId == cars[j].id ){
+				rentals[i].price = cars[j].pricePerDay*diff + cars[j].pricePerKm*rentals[i].distance;
+			}
+		}
+
+		if(diff<4 && diff>=1){rentals[i].price = rentals[i].price*0.90;}
+		if(diff<10 && diff>=4){rentals[i].price = rentals[i].price*0.70;}
+		if(diff>=10){rentals[i].price = rentals[i].price*0.50;}
+
+		console.log("Le prix de la location avec la reduction est de " + rentals[i].price + " euros");
+		
+	}
+}
+
