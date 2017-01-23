@@ -169,3 +169,44 @@ console.log(cars);
 console.log(rentals);
 console.log(actors);
 console.log(rentalModifications);
+
+function ConvertDate(str) {
+
+    var re = / [0-9]+/g;
+    var result = re[Symbol.match](str);
+    var dateLoc=new Date( result[0], result[1], result[2]);
+    return dateLoc;
+}
+
+
+
+//Exo1
+
+function Price()
+{
+	var date = new Date("2017-01-05");
+	var milliseconde = date.getTime();
+
+	var date1 = new Date("2017-01-06");
+	var milliseconde2 = date.getTime();
+	
+	var diff;
+
+
+	for(var i = 0; i<rentals.length; i++)
+	{
+		date = new Date(rentals[i].pickupDate).getTime();
+		date1 = new Date(rentals[i].returnDate).getTime();
+		diff = date1 - date;
+		diff = (diff/(1000*3600*24)) + 1;
+
+
+		for(var j=0; j<cars.length;j++){
+			if(rentals[i].carId == cars[j].id )
+				rentals[i].price = cars[j].pricePerDay*diff + cars[j].pricePerKm*rentals[i].distance;
+		}
+
+		console.log("Le prix de la location est de " + rentals[i].price + " euros");
+		
+	}
+}
